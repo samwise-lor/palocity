@@ -23,3 +23,18 @@ problem. We’re looking to see your skills in all three tiers so the solution c
 to show our teams your abilities across the board.
 
 Requirements will be given separately.
+
+# Assumptions
+
+* Deductions are removed from the salary
+* Configs are hardcoded as constants and will be moved to appsettings.json
+* Split the services logic into EmployeeService and DependentService for separation of concern as well as extensibility in case of new Business logic
+
+# Pattern
+* Mediator is a behavioral design pattern that reduces coupling between objects, making them communicate indirectly and remove dependency using mediator object. 
+* Command Query Responsibility Segregation (CQRS) patterns allows for splitting the responsibility of commands and queries into different models
+
+
+# Working on
+Mapping of returns based on controller contracts
+Unit tests

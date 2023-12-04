@@ -3,7 +3,6 @@ using Api.Dtos.Dependent;
 using Api.Dtos.Employee;
 using Api.Models;
 using AutoMapper;
-using AutoMapper.Extensions.EnumMapping;
 
 namespace Api.Profiles
 {

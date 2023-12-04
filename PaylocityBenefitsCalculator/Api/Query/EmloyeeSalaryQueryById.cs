@@ -30,8 +30,6 @@ namespace Api.Query
 
             public async Task<Result<GetEmployeeSalaryDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                //var employee = await _context.Employees.Include(nameof(Dependent))
-                //    .SingleOrDefaultAsync(x => x.Id == request.Id);
                 var employee = await _context.Employees.Include("Dependents")
                     .SingleOrDefaultAsync(x => x.Id == request.Id);
 

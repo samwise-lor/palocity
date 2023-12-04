@@ -1,6 +1,5 @@
 using Api.Extensions;
 using Api.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,13 +20,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Api to support employee benefit cost calculations"
     });
 });
-
-//var allowLocalhost = "allow localhost";
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(allowLocalhost,
-//        policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
-//});
 
 var app = builder.Build();
 

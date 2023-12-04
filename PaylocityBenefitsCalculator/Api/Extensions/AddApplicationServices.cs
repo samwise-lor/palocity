@@ -19,7 +19,6 @@ namespace Api.Extensions
                     policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
             });
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(EmployeeQuery.Handler).Assembly));
-            //services.AddMediatR(typeof(List.Handler));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddHttpContextAccessor();
             services.AddScoped<IEmployeeDeductions, EmployeeDedutionsService>();

@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace Api.Models
 {
     public class DataGenerator
     {
-        //public static void Initialize(IServiceProvider serviceProvider, IConfiguration configuration)
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using var context = new EmployeeContext(serviceProvider.GetRequiredService<DbContextOptions<EmployeeContext>>());

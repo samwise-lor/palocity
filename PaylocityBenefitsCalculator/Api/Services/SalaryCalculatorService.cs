@@ -22,8 +22,13 @@ namespace Api.Services
             {
                 EmployeeDeductionPerPayCheck = employeeDeductions,
                 DependentsDeductionPerPayCheck = dependentDeductions,
-                TotalDeductionPerPayCheck = employeeDeductions + dependentDeductions
+                TotalDeductionPerPayCheck = employeeDeductions + dependentDeductions,
+                TotalYearlyDeduction = employeeDeductions * 12,
+                DependentsYearlyDeduction = dependentDeductions * 12,
+                EmployeeYearlyDeduction = (employeeDeductions + dependentDeductions) * 12
+
             };
+        
             return salaryResult;
         }
     }

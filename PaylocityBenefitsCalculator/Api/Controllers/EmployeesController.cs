@@ -1,10 +1,10 @@
-﻿using Api.Dtos;
+﻿using Api.Command;
+using Api.Dtos;
 using Api.Dtos.Employee;
 using Api.Models;
 using Api.Query;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-
 namespace Api.Controllers;
 
 [ApiController]
@@ -30,5 +30,12 @@ public class EmployeesController : BaseApiController
     public async Task<ActionResult<ApiResponse<GetEmployeeSalaryDto>>> GetEmployeePaycheck(int id)
     {
         return HandleResult(await Mediator.Send(new EmloyeeSalaryQueryById.Query { Id = id }));
+    }
+
+    [SwaggerOperation(Summary = "Add employee")]
+    [HttpPost]
+    public async Task<IActionResult> CreateActivity(Employee employee)
+    {
+        return HandleResult(await Mediator.Send(new AddEmployee.Command { Employee = employee }));
     }
 }

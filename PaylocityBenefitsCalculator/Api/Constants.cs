@@ -3,7 +3,6 @@
     public static class Constants
     {
         public const int employeeYearlyPayChecks = 26;
-        public const int employeeMonthlyBaseCost = 1000;
         public const decimal employeeMaxSalary = 80000m;
         public const double employeeDeduction = 2;
         public const int dependentAgeOverFifty = 50;

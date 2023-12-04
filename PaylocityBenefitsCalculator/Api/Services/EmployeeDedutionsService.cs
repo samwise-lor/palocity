@@ -7,17 +7,16 @@ namespace Api.Services
         public decimal GetEmployeeSalaryPerMonth(Employee employee)
         {
             var paychecks = Constants.employeeYearlyPayChecks;
-            var baseCost = Constants.employeeMonthlyBaseCost;
             var maxSalary = Constants.employeeMaxSalary;
             var additionalDeduction = Constants.employeeDeduction;
 
             if (employee.Salary == 0) return 0;            
 
-            if ((employee.Salary/paychecks) < baseCost) return employee.Salary;
+            if ((employee.Salary/paychecks) < employee.BaseDeduction) return employee.Salary;
 
             return employee.Salary > maxSalary
-                ? (employee.Salary / paychecks) + baseCost + (employee.Salary * (decimal)additionalDeduction) / 100
-                : (employee.Salary / paychecks) + baseCost;
+                ? (employee.Salary / paychecks) + employee.BaseDeduction + (employee.Salary * (decimal)additionalDeduction) / 100
+                : (employee.Salary / paychecks) + employee.BaseDeduction;
         }
     }
 }

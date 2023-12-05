@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Configs;
+using Api.Models;
 using Api.Profiles;
 using Api.Query;
 using Api.Services;
@@ -24,8 +25,22 @@ namespace Api.Extensions
             services.AddScoped<IEmployeeDeductions, EmployeeDedutionsService>();
             services.AddScoped<IDependentDeductions, DependentDedutionsService>();
             services.AddScoped<ISalaryCalculatorService, SalaryCalculatorService>();
+            AddConfigs(services, config);
 
             return services;
+        }
+
+        private static void AddConfigs(IServiceCollection services, IConfiguration config, Action<object> onConfigAdded = null)
+        {
+            void AddConfig<TConfig>(string section) where TConfig : class
+            {
+                var subsection = config.GetSection(section).Get<TConfig>(opts => opts.BindNonPublicProperties = true);
+                services.AddSingleton(subsection);
+
+                onConfigAdded?.Invoke(subsection);
+            }
+
+            AddConfig<DeductionSettings>("DeductionSettings");
         }
     }
 }

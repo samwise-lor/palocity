@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Configs;
+using Api.Models;
 
 namespace Api.Services
 {
@@ -13,20 +14,19 @@ namespace Api.Services
             _dependentDeductions = dependentDeductions;
         }
 
-        public SalaryResults CalculateEmployeeSalary(Employee employee)
+        public SalaryResults CalculateEmployeeSalary(Employee employee, DeductionSettings deductionSettings)
         {
-            var employeeDeductions = Math.Round(_employeeDeductions.GetEmployeeSalaryPerMonth(employee), 2);
-            var dependentDeductions = Math.Round(_dependentDeductions.GetDependentDeductionPerPayCheck(employee.Dependents.ToList()));
+            var employeeDeductions = Math.Round(_employeeDeductions.GetEmployeeSalaryDeductionsPerMonth(employee, deductionSettings), 2);
+            var dependentDeductions = Math.Round(_dependentDeductions.GetDependentDeductionPerPayCheck(employee.Dependents.ToList(), deductionSettings));
 
             var salaryResult = new SalaryResults
             {
                 EmployeeDeductionPerPayCheck = employeeDeductions,
                 DependentsDeductionPerPayCheck = dependentDeductions,
                 TotalDeductionPerPayCheck = employeeDeductions + dependentDeductions,
-                TotalYearlyDeduction = employeeDeductions * 12,
                 DependentsYearlyDeduction = dependentDeductions * 12,
-                EmployeeYearlyDeduction = (employeeDeductions + dependentDeductions) * 12
-
+                EmployeeYearlyDeduction = employeeDeductions * 12,
+                TotalYearlyDeduction = (employeeDeductions * 12) + (dependentDeductions * 12)
             };
         
             return salaryResult;

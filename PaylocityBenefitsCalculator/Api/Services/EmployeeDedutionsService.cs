@@ -1,22 +1,24 @@
-﻿using Api.Models;
+﻿using Api.Configs;
+using Api.Models;
 
 namespace Api.Services
 {
     public class EmployeeDedutionsService : IEmployeeDeductions
     {
-        public decimal GetEmployeeSalaryPerMonth(Employee employee)
+        public decimal GetEmployeeSalaryDeductionsPerMonth(Employee employee, DeductionSettings deductionSettings)
         {
-            var paychecks = Constants.employeeYearlyPayChecks;
-            var maxSalary = Constants.employeeMaxSalary;
-            var additionalDeduction = Constants.employeeDeduction;
+            var paychecks = deductionSettings.EmployeePaychecks;
+            var maxSalary = deductionSettings.EmployeeMaxDeductionSalary;
+            var additionalDeduction = deductionSettings.EmployeeDeductionPercentage;
+
 
             if (employee.Salary == 0) return 0;            
 
-            if ((employee.Salary/paychecks) < employee.BaseDeduction) return employee.Salary;
+            if ((employee.Salary/paychecks) < employee.BaseDeduction) return employee.Salary;            
 
             return employee.Salary > maxSalary
-                ? (employee.Salary / paychecks) + employee.BaseDeduction + (employee.Salary * (decimal)additionalDeduction) / 100
-                : (employee.Salary / paychecks) + employee.BaseDeduction;
+            ? (employee.BaseDeduction + ((employee.Salary * (decimal)additionalDeduction) / 100))
+            : employee.BaseDeduction;
         }
     }
 }

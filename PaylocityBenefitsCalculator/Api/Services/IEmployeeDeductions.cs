@@ -1,9 +1,10 @@
-﻿using Api.Models;
+﻿using Api.Configs;
+using Api.Models;
 
 namespace Api.Services
 {
     public interface IEmployeeDeductions
     {
-        decimal GetEmployeeSalaryPerMonth(Employee employee);
+        decimal GetEmployeeSalaryDeductionsPerMonth(Employee employee, DeductionSettings deductionSettings);
     }
 }

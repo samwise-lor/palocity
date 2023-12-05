@@ -1,4 +1,5 @@
-﻿using Api.Controllers;
+﻿using Api.Configs;
+using Api.Controllers;
 using Api.Dtos;
 using Api.Models;
 using Api.Services;
@@ -20,12 +21,14 @@ namespace Api.Query
             private readonly EmployeeContext _context;
             private readonly IMapper _mapper;
             private readonly ISalaryCalculatorService _salaryCalculatorService;
+            private readonly DeductionSettings _deductionSettings;
 
-            public Handler(EmployeeContext context, IMapper mapper, ISalaryCalculatorService salaryCalculatorService)
+            public Handler(EmployeeContext context, IMapper mapper, ISalaryCalculatorService salaryCalculatorService, DeductionSettings deductionSettings)
             {
                 _context = context;
                 _mapper = mapper;
                 _salaryCalculatorService = salaryCalculatorService;
+                _deductionSettings = deductionSettings;
             }
 
             public async Task<Result<GetEmployeeSalaryDto>> Handle(Query request, CancellationToken cancellationToken)
@@ -35,9 +38,9 @@ namespace Api.Query
 
                 if (employee == null) return new Result<GetEmployeeSalaryDto>();
 
-                var calculatedSalary = _salaryCalculatorService.CalculateEmployeeSalary(employee);
+                var calculatedSalary = _salaryCalculatorService.CalculateEmployeeSalary(employee, _deductionSettings);
 
-                var hello = _mapper.Map<GetEmployeeSalaryDto>(calculatedSalary); //_mapper.ProjectTo<GetEmployeeSalaryDto>((IQueryable)calculatedSalary);                
+                var hello = _mapper.Map<GetEmployeeSalaryDto>(calculatedSalary);                
 
                 return Result<GetEmployeeSalaryDto>.Success(_mapper.Map<GetEmployeeSalaryDto>(calculatedSalary));
             }

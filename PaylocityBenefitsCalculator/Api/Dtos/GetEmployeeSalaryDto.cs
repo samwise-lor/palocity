@@ -11,5 +11,6 @@ namespace Api.Dtos
         public decimal TotalYearlyDeduction { get; set; }
         public decimal DependentsYearlyDeduction { get; set; }
         public decimal EmployeeYearlyDeduction { get; set; }
+        public decimal EmployeeYearlySalary { get; set; }
     }
 }

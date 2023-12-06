@@ -11,10 +11,7 @@ namespace Api.Services
             var maxSalary = deductionSettings.EmployeeMaxDeductionSalary;
             var additionalDeduction = deductionSettings.EmployeeDeductionPercentage;
 
-
-            if (employee.Salary == 0) return 0;            
-
-            if ((employee.Salary/paychecks) < employee.BaseDeduction) return employee.Salary;            
+            if (employee.Salary == 0 || (employee.Salary/paychecks) < employee.BaseDeduction) return 0;
 
             return employee.Salary > maxSalary
             ? (employee.BaseDeduction + ((employee.Salary * (decimal)additionalDeduction) / 100))

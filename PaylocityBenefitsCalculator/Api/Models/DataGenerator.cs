@@ -18,7 +18,7 @@ namespace Api.Models
                     Id = 1,
                     FirstName = "LeBron",
                     LastName = "James",
-                    Salary = 75420.99m,
+                    Salary = 20000m,
                     DateOfBirth = new DateTime(1984, 12, 30),
                     Dependents = new List<Dependent>() 
                     {
